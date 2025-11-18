@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Welcome to the coding challenge! Make the following code run and upload results to a forked branch of this repo!
+Welcome to the coding challenge! Make the following code run and upload the edited script and results to a forked branch of this repo!
 """
 import csv
 import sys

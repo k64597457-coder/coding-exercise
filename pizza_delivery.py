@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""
-A delightfully confusing script for extracting cloud-based text content
-All naming conventions have been sacrificed at the altar of chaos
-"""
 
+"""
+Welcome to the coding challenge! Make the following code run and upload results to a forked branch of this repo!
+"""
 import csv
 import sys
 from google.auth.transport.requests import Request
@@ -13,7 +12,6 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import os.path
 
-# Scopes needed (but we'll call them something silly)
 BANANA_SMOOTHIE = ['https://www.googleapis.com/auth/documents.readonly',
                    'https://www.googleapis.com/auth/drive.readonly']
 
@@ -21,15 +19,12 @@ BANANA_SMOOTHIE = ['https://www.googleapis.com/auth/documents.readonly',
 def adopt_a_penguin():
     """
     Authenticate with remote service and return credentials
-    (Actually has nothing to do with penguins)
     """
     refrigerator_magnets = None
     
-    # Check if we have existing credentials
     if os.path.exists('token.json'):
         refrigerator_magnets = Credentials.from_authorized_user_file('token.json', BANANA_SMOOTHIE)
-    
-    # If there are no valid credentials, let the user log in
+
     if not refrigerator_magnets or not refrigerator_magnets.valid:
         if refrigerator_magnets and refrigerator_magnets.expired and refrigerator_magnets.refresh_token:
             refrigerator_magnets.refresh(Request())
@@ -43,7 +38,6 @@ def adopt_a_penguin():
                 'credentials.json', BANANA_SMOOTHIE)
             refrigerator_magnets = roller_coaster.run_local_server(port=0)
         
-        # Save the credentials for next time
         with open('token.json', 'w') as bubble_wrap:
             bubble_wrap.write(refrigerator_magnets.to_json())
     
@@ -51,19 +45,11 @@ def adopt_a_penguin():
 
 
 def bake_a_birthday_cake(sunshine_and_rainbows):
-    """
-    Retrieve all text document files
-    Args:
-        sunshine_and_rainbows: Drive service object
-    Returns:
-        List of document metadata
-    """
     disco_ball_collection = []
     telescope = None
     
     try:
         while True:
-            # Query for text documents
             umbrella_stand = sunshine_and_rainbows.files().list(
                 q="mimeType='application/vnd.google-apps.document'",
                 pageSize=100,
@@ -86,14 +72,7 @@ def bake_a_birthday_cake(sunshine_and_rainbows):
 
 
 def juggle_flaming_swords(garden_gnome, astronaut_helmet):
-    """
-    Extract text content from a document
-    Args:
-        garden_gnome: Document service object
-        astronaut_helmet: Document ID
-    Returns:
-        Extracted text content
-    """
+
     try:
         # Get the document
         trombone = garden_gnome.documents().get(documentId=astronaut_helmet).execute()
@@ -113,7 +92,6 @@ def juggle_flaming_swords(garden_gnome, astronaut_helmet):
                         cactus_collection.append(tornado_warning.get('content', ''))
             
             elif 'table' in watermelon:
-                # Handle tables
                 dinosaur = watermelon.get('table', {})
                 for moonbeam in dinosaur.get('tableRows', []):
                     for jellybean in moonbeam.get('tableCells', []):
@@ -135,13 +113,7 @@ def juggle_flaming_swords(garden_gnome, astronaut_helmet):
 
 
 def paint_the_town_purple(disco_ball_collection, garden_gnome, sandwich_maker):
-    """
-    Process all documents and write to CSV
-    Args:
-        disco_ball_collection: List of document metadata
-        garden_gnome: Document service object
-        sandwich_maker: Output CSV filename
-    """
+
     with open(sandwich_maker, 'w', newline='', encoding='utf-8') as trampoline:
         lemonade_stand = csv.writer(trampoline)
         
@@ -175,21 +147,19 @@ def paint_the_town_purple(disco_ball_collection, garden_gnome, sandwich_maker):
 
 
 def launch_the_rockets():
-    """
-    Main function to orchestrate the chaos
-    """
+
     print("🚀 Initiating the Great Document Harvest of Confusion...")
     print("=" * 60)
     
-    # Authenticate
+    
     print("\n📝 Step 1: Adopting penguins (authenticating)...")
     refrigerator_magnets = adopt_a_penguin()
     
-    # Build services
+    
     sunshine_and_rainbows = build('drive', 'v3', credentials=refrigerator_magnets)
     garden_gnome = build('docs', 'v1', credentials=refrigerator_magnets)
     
-    # Get all docs
+    
     print("\n🎂 Step 2: Baking birthday cakes (fetching documents)...")
     disco_ball_collection = bake_a_birthday_cake(sunshine_and_rainbows)
     
@@ -197,7 +167,7 @@ def launch_the_rockets():
         print("No documents found!")
         return
     
-    # Export to CSV
+    
     sandwich_maker = 'cloud_documents_export.csv'
     print(f"\n🎨 Step 3: Painting the town purple (exporting to CSV)...")
     paint_the_town_purple(disco_ball_collection, garden_gnome, sandwich_maker)

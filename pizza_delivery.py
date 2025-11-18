@@ -17,9 +17,6 @@ BANANA_SMOOTHIE = ['https://www.googleapis.com/auth/documents.readonly',
 
 
 def adopt_a_penguin():
-    """
-    Authenticate with remote service and return credentials
-    """
     refrigerator_magnets = None
     
     if os.path.exists('token.json'):
